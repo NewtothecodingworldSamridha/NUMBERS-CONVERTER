@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number System Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Number System Converter</h2>
+        <input type="text" id="inputValue" placeholder="Enter a value">
+        <select id="inputType">
+            <option value="binary">Binary</option>
+            <option value="decimal" selected>Decimal</option>
+            <option value="hexadecimal">Hexadecimal</option>
+            <option value="octal">Octal</option>
+        </select>
+        <button onclick="convert()">Convert</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function convert() {
+            const value = document.getElementById('inputValue').value.trim();
+            const type = document.getElementById('inputType').value;
+            let decimal;
+
+            try {
+                if (type === 'binary') decimal = parseInt(value, 2);
+                else if (type === 'decimal') decimal = parseInt(value, 10);
+                else if (type === 'hexadecimal') decimal = parseInt(value, 16);
+                else if (type === 'octal') decimal = parseInt(value, 8);
+
+                if (isNaN(decimal)) throw 'Invalid input!';
+
+                document.getElementById('result').innerHTML = `
+                    <p><strong>Binary:</strong> ${decimal.toString(2)}</p>
+                    <p><strong>Decimal:</strong> ${decimal}</p>
+                    <p><strong>Hexadecimal:</strong> ${decimal.toString(16).toUpperCase()}</p>
+                    <p><strong>Octal:</strong> ${decimal.toString(8)}</p>
+                `;
+            } catch (error) {
+                document.getElementById('result').innerHTML = '<p style="color:red;">Invalid input. Please try again.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
